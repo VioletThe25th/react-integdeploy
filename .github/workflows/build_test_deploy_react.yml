@@ -46,8 +46,8 @@ jobs:
         uses: actions/upload-pages-artifact@v2
         with:
           path: |
-            build        # React build output
-            docs         # JSDoc output (adjust path based on your config)
+            build               # React build output
+            public/docs         # JSDoc output 
           if-no-files-found: error
 
       # Upload coverage reports to Codecov
