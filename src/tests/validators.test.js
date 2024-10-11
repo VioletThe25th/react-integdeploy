@@ -1,4 +1,4 @@
-import { validateName, validateEmail, validatePostalCode, validateDOB } from "./validators";
+import { validateName, validateEmail, validatePostalCode, validateDOB } from "../validators/validators";
 
 test('valide un nom corect', () => {
     expect(validateName('Jean-Michel')).toBe(true);

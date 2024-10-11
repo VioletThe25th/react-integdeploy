@@ -63,6 +63,8 @@ const RegisterForm = ({ onRegister }) => {
                 city: '',
                 postalCode: '',
             });
+        } else {
+            return false;
         }
     };
 
