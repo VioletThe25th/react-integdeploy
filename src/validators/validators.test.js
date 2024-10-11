@@ -2,7 +2,7 @@ import { validateName, validateEmail, validatePostalCode, validateDOB } from "./
 
 test('valide un nom corect', () => {
     expect(validateName('Jean-Michel')).toBe(true);
-    expect(validateName('Luc')).toBe(true);
+    expect(validateName('Zack')).toBe(true);
 });
 
 test('Invalide un nom incorrect', () => {
@@ -11,7 +11,7 @@ test('Invalide un nom incorrect', () => {
 });
 
 test('valide un email correct', () => {
-    expect(validateEmail('test@email.com')).toBe(true);
+    expect(validateEmail('zackfair@gmail.com')).toBe(true);
 });
 
 test('Invalide un email incorrect', () => {
@@ -23,7 +23,7 @@ test('valide un code postal francais', () => {
 });
 
 test('Invalide un code postal incorrect', () => {
-    expect(validatePostalCode('1234')).toBe(false);
+    expect(validatePostalCode('750')).toBe(false);
 });
 
 test('valide une date de naissance supérieure à 18 ans', () => {

@@ -37,6 +37,5 @@ export const validateDOB = (dob) => {
     const birthDate = new Date(dob);
     const today = new Date();
     const age = today.getFullYear() - birthDate.getFullYear();
-    const month = today.getMonth() - birthDate.getMonth();
-    return age > 18 || (age === 18 && month >= 0);
+    return age > 18;
 };
