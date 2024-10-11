@@ -5,7 +5,7 @@
   "homepage": "https://github.com/VioletThe25th/react-integdeploy",
   "dependencies": {
     "@testing-library/jest-dom": "^5.17.0",
-    "@testing-library/react": "^13.4.0",
+    "@testing-library/react": "^16.0.1",
     "@testing-library/user-event": "^13.5.0",
     "jest": "^27.5.1",
     "react": "^18.3.1",
@@ -43,5 +43,13 @@
   "devDependencies": {
     "gh-pages": "^6.1.1",
     "react-test-renderer": "^18.3.1"
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "src/**/*js",
+      "!src/reportWebVitals.js",
+      "!src/index.js",
+      "!src/babel.config.js"
+    ]
   }
 }
