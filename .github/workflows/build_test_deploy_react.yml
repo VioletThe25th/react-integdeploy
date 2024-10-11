@@ -28,13 +28,9 @@ jobs:
       - name: Install dependencies, build and test
         run: |
           npm ci
+          npm run jsdoc
           npm run build --if-present
           npm test
-
-      # Generate JSDoc documentation
-      - name: Generate JSDoc documentation
-        run: |
-          npm run jsdoc
 
       # Setup GitHub Pages
       - name: Setup Pages
@@ -45,9 +41,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v2
         with:
-          path: |
-            build               # React build output
-            public/docs         # JSDoc output 
+          path: build        # React build output
           if-no-files-found: error
 
       # Upload coverage reports to Codecov
