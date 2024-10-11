@@ -3,6 +3,17 @@
 import React from 'react';
 import { List, ListItem, ListItemText, Typography, Container, Paper } from '@mui/material';
 
+/**
+ * UserList component displays a list of users with their personal details.
+ * 
+ * @param {Object} props - The component props.
+ * @param {Array<Object>} props.users - An array of user objects to be displayed.
+ * @param {string} props.users[].firstName - The user's first name.
+ * @param {string} props.users[].lastName - The user's last name.
+ * @param {string} props.users[].city - The user's city.
+ * @param {string} props.users[].postalCode - The user's postal code.
+ * @returns {JSX.Element} A styled list of users with their first name, last name, city, and postal code.
+ */
 const UserList = ({ users }) => {
   return (
     <Container maxWidth="sm">

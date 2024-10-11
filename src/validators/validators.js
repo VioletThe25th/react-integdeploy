@@ -1,7 +1,7 @@
 /**
  * Validate the name field
  * @param {*} name 
- * @returns 
+ * @returns a boolean depending on the regex
  */
 export const validateName = (name) => {
     const regex = /^[a-zA-Zà-ÿÀ-ÿ\- ]+$/;
@@ -11,7 +11,7 @@ export const validateName = (name) => {
 /**
  * validate the email field
  * @param {*} email 
- * @returns 
+ * @returns a boolean depending on the regex
  */
 export const validateEmail = (email) => {
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -21,7 +21,7 @@ export const validateEmail = (email) => {
 /**
  * Validate the postal code
  * @param {*} postalCode 
- * @returns 
+ * @returns a boolean depending on the regex
  */
 export const validatePostalCode = (postalCode) => {
     const regex = /^[0-9]{5}$/;
@@ -31,7 +31,7 @@ export const validatePostalCode = (postalCode) => {
 /**
  * Validate the date of birth
  * @param {*} dob 
- * @returns 
+ * @returns a boolean depending on the regex
  */
 export const validateDOB = (dob) => {
     const birthDate = new Date(dob);

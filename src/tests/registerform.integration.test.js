@@ -10,12 +10,18 @@ jest.mock('react-toastify', () => ({
   },
 }));
 
+/**
+ * Suite de tests d'intégration pour l'enregistrement des utilisateurs et la liste des utilisateurs.
+ */
 describe('Tests d\'intégration - Enregistrement et liste des utilisateurs', () => {
 
+  /**
+   * Vérifie que le bouton "Enregistrer" est désactivé si un champ du formulaire est absent.
+   */
   test('Vérifier que le bouton "Enregistrer" est désactivé si un champ est absent', () => {
     render(<App />);
 
-    // Vérifie que le formulaire d'inscription est présent
+    // Sélectionne les champs du formulaire
     const firstNameInput = screen.getByPlaceholderText(/First name/i);
     const lastNameInput = screen.getByPlaceholderText(/Last name/i);
     const emailInput = screen.getByPlaceholderText(/Email/i);
@@ -24,7 +30,7 @@ describe('Tests d\'intégration - Enregistrement et liste des utilisateurs', () 
     const postalCodeInput = screen.getByPlaceholderText(/Postal code/i);
     const submitButton = screen.getByText(/Enregistrer/i);
 
-    // Simuler l'entrée d'un utilisateur sans prenom
+    // Simule une entrée utilisateur avec un champ prénom vide
     fireEvent.change(firstNameInput, { target: { value: '' } });
     fireEvent.change(lastNameInput, { target: { value: 'Fair' } });
     fireEvent.change(emailInput, { target: { value: 'zackfair@gmail.com' } });
@@ -32,14 +38,16 @@ describe('Tests d\'intégration - Enregistrement et liste des utilisateurs', () 
     fireEvent.change(cityInput, { target: { value: 'Paris' } });
     fireEvent.change(postalCodeInput, { target: { value: '75000' } });
 
-    // Le bouton "Enregistrer" devrait être désactivé
+    // Vérifie que le bouton "Enregistrer" est désactivé
     expect(submitButton).toBeDisabled();
   });
 
+  /**
+   * Vérifie que le bouton "Enregistrer" est désactivé si le prénom est incorrect.
+   */
   test('Vérifier que le bouton "Enregistrer" est désactivé si le prenom n\'est pas bon', () => {
     render(<App />);
 
-    // Vérifie que le formulaire d'inscription est présent
     const firstNameInput = screen.getByPlaceholderText(/First name/i);
     const lastNameInput = screen.getByPlaceholderText(/Last name/i);
     const emailInput = screen.getByPlaceholderText(/Email/i);
@@ -48,7 +56,7 @@ describe('Tests d\'intégration - Enregistrement et liste des utilisateurs', () 
     const postalCodeInput = screen.getByPlaceholderText(/Postal code/i);
     const submitButton = screen.getByText(/Enregistrer/i);
 
-    // Simuler l'entrée d'un utilisateur sans prenom
+    // Simule une entrée utilisateur avec un prénom incorrect
     fireEvent.change(firstNameInput, { target: { value: '4534@gjkr' } });
     fireEvent.change(lastNameInput, { target: { value: 'Fair' } });
     fireEvent.change(emailInput, { target: { value: 'zackfair@gmail.com' } });
@@ -56,14 +64,15 @@ describe('Tests d\'intégration - Enregistrement et liste des utilisateurs', () 
     fireEvent.change(cityInput, { target: { value: 'Paris' } });
     fireEvent.change(postalCodeInput, { target: { value: '75000' } });
 
-    // Le bouton "Enregistrer" devrait être désactivé
     expect(submitButton).toBeDisabled();
   });
 
+  /**
+   * Vérifie que le bouton "Enregistrer" est désactivé si le nom de famille est incorrect.
+   */
   test('Vérifier que le bouton "Enregistrer" est désactivé si le nom n\'est pas bon', () => {
     render(<App />);
 
-    // Vérifie que le formulaire d'inscription est présent
     const firstNameInput = screen.getByPlaceholderText(/First name/i);
     const lastNameInput = screen.getByPlaceholderText(/Last name/i);
     const emailInput = screen.getByPlaceholderText(/Email/i);
@@ -72,7 +81,7 @@ describe('Tests d\'intégration - Enregistrement et liste des utilisateurs', () 
     const postalCodeInput = screen.getByPlaceholderText(/Postal code/i);
     const submitButton = screen.getByText(/Enregistrer/i);
 
-    // Simuler l'entrée d'un utilisateur sans prenom
+    // Simule une entrée utilisateur avec un nom de famille incorrect
     fireEvent.change(firstNameInput, { target: { value: 'Zack' } });
     fireEvent.change(lastNameInput, { target: { value: '458@wejro' } });
     fireEvent.change(emailInput, { target: { value: 'zackfair@gmail.com' } });
@@ -80,14 +89,15 @@ describe('Tests d\'intégration - Enregistrement et liste des utilisateurs', () 
     fireEvent.change(cityInput, { target: { value: 'Paris' } });
     fireEvent.change(postalCodeInput, { target: { value: '75000' } });
 
-    // Le bouton "Enregistrer" devrait être désactivé
     expect(submitButton).toBeDisabled();
   });
 
-  test('Verifie aue le bouton "Enregistrer" est absent si l\'utilisateur a moins de 18 ans', () => {
+  /**
+   * Vérifie que le bouton "Enregistrer" est désactivé si l'utilisateur a moins de 18 ans.
+   */
+  test('Verifie que le bouton "Enregistrer" est absent si l\'utilisateur a moins de 18 ans', () => {
     render(<App />);
 
-    // Vérifie que le formulaire d'inscription est présent
     const firstNameInput = screen.getByPlaceholderText(/First name/i);
     const lastNameInput = screen.getByPlaceholderText(/Last name/i);
     const emailInput = screen.getByPlaceholderText(/Email/i);
@@ -96,7 +106,7 @@ describe('Tests d\'intégration - Enregistrement et liste des utilisateurs', () 
     const postalCodeInput = screen.getByPlaceholderText(/Postal code/i);
     const submitButton = screen.getByText(/Enregistrer/i);
 
-    // Simuler l'entrée d'un utilisateur mineur
+    // Simule une entrée utilisateur mineur
     fireEvent.change(firstNameInput, { target: { value: 'Zack' } });
     fireEvent.change(lastNameInput, { target: { value: 'Fair' } });
     fireEvent.change(emailInput, { target: { value: 'zackfair@gmail.com' } });
@@ -104,105 +114,107 @@ describe('Tests d\'intégration - Enregistrement et liste des utilisateurs', () 
     fireEvent.change(cityInput, { target: { value: 'Paris' } });
     fireEvent.change(postalCodeInput, { target: { value: '75000' } });
 
-    // Le bouton "Enregistrer" devrait être désactivé
     expect(submitButton).toBeDisabled();
   });
 
+  /**
+   * Vérifie que le bouton "Enregistrer" est désactivé si le code postal est incorrect.
+   */
   test('Verifie que le bouton "Enregistrer" est absent si le code postal n\'est pas francais', () => {
-    render(<App/>);
+    render(<App />);
 
-      // Vérifie que le formulaire d'inscription est présent
-      const firstNameInput = screen.getByPlaceholderText(/First name/i);
-      const lastNameInput = screen.getByPlaceholderText(/Last name/i);
-      const emailInput = screen.getByPlaceholderText(/Email/i);
-      const dobInput = screen.getByPlaceholderText(/Date of birth/i);
-      const cityInput = screen.getByPlaceholderText(/City/i);
-      const postalCodeInput = screen.getByPlaceholderText(/Postal code/i);
-      const submitButton = screen.getByText(/Enregistrer/i);
+    const firstNameInput = screen.getByPlaceholderText(/First name/i);
+    const lastNameInput = screen.getByPlaceholderText(/Last name/i);
+    const emailInput = screen.getByPlaceholderText(/Email/i);
+    const dobInput = screen.getByPlaceholderText(/Date of birth/i);
+    const cityInput = screen.getByPlaceholderText(/City/i);
+    const postalCodeInput = screen.getByPlaceholderText(/Postal code/i);
+    const submitButton = screen.getByText(/Enregistrer/i);
 
-      // Simuler l'entrée d'un utilisateur avec un mauvais code postal
-      fireEvent.change(firstNameInput, { target: { value: 'Zack' } });
-      fireEvent.change(lastNameInput, { target: { value: 'Fair' } });
-      fireEvent.change(emailInput, { target: { value: 'zackfair@gmail.com' } });
-      fireEvent.change(dobInput, { target: { value: '2000-01-01' } });
-      fireEvent.change(cityInput, { target: { value: 'Paris' } });
-      fireEvent.change(postalCodeInput, { target: { value: '750' } });
+    // Simule une entrée utilisateur avec un code postal incorrect
+    fireEvent.change(firstNameInput, { target: { value: 'Zack' } });
+    fireEvent.change(lastNameInput, { target: { value: 'Fair' } });
+    fireEvent.change(emailInput, { target: { value: 'zackfair@gmail.com' } });
+    fireEvent.change(dobInput, { target: { value: '2000-01-01' } });
+    fireEvent.change(cityInput, { target: { value: 'Paris' } });
+    fireEvent.change(postalCodeInput, { target: { value: '750' } });
 
-      // Le bouton "Enregistrer" devrait être désactivé
-      expect(submitButton).toBeDisabled();
-    });
+    expect(submitButton).toBeDisabled();
+  });
 
+  /**
+   * Vérifie que le bouton "Enregistrer" est désactivé si l'email est incorrect.
+   */
   test('Verifie que le bouton "Enregistrer" est absent si l\'adresse email n\'est pas bonne', () => {
-    render(<App/>);
+    render(<App />);
 
-      // Vérifie que le formulaire d'inscription est présent
-      const firstNameInput = screen.getByPlaceholderText(/First name/i);
-      const lastNameInput = screen.getByPlaceholderText(/Last name/i);
-      const emailInput = screen.getByPlaceholderText(/Email/i);
-      const dobInput = screen.getByPlaceholderText(/Date of birth/i);
-      const cityInput = screen.getByPlaceholderText(/City/i);
-      const postalCodeInput = screen.getByPlaceholderText(/Postal code/i);
-      const submitButton = screen.getByText(/Enregistrer/i);
+    const firstNameInput = screen.getByPlaceholderText(/First name/i);
+    const lastNameInput = screen.getByPlaceholderText(/Last name/i);
+    const emailInput = screen.getByPlaceholderText(/Email/i);
+    const dobInput = screen.getByPlaceholderText(/Date of birth/i);
+    const cityInput = screen.getByPlaceholderText(/City/i);
+    const postalCodeInput = screen.getByPlaceholderText(/Postal code/i);
+    const submitButton = screen.getByText(/Enregistrer/i);
 
-      // Simuler l'entrée d'un utilisateur avec un mauvais code postal
-      fireEvent.change(firstNameInput, { target: { value: 'Zack' } });
-      fireEvent.change(lastNameInput, { target: { value: 'Fair' } });
-      fireEvent.change(emailInput, { target: { value: 'zackfair' } });
-      fireEvent.change(dobInput, { target: { value: '2000-01-01' } });
-      fireEvent.change(cityInput, { target: { value: 'Paris' } });
-      fireEvent.change(postalCodeInput, { target: { value: '75000' } });
+    // Simule une entrée utilisateur avec un email incorrect
+    fireEvent.change(firstNameInput, { target: { value: 'Zack' } });
+    fireEvent.change(lastNameInput, { target: { value: 'Fair' } });
+    fireEvent.change(emailInput, { target: { value: 'zackfair' } });
+    fireEvent.change(dobInput, { target: { value: '2000-01-01' } });
+    fireEvent.change(cityInput, { target: { value: 'Paris' } });
+    fireEvent.change(postalCodeInput, { target: { value: '75000' } });
 
-      // Le bouton "Enregistrer" devrait être désactivé
-      expect(submitButton).toBeDisabled();
-    });
+    expect(submitButton).toBeDisabled();
+  });
 
+  /**
+   * Vérifie que les données sont enregistrées correctement et que `toast.success` est appelé après la soumission réussie.
+   */
   test('Vérifier que les donnees sont enregistres et que toast.success est appelé', () => {
     const mockOnRegister = jest.fn(); // Mock de la fonction onRegister
     
     render(<RegisterForm onRegister={mockOnRegister}/>);
 
-      // Vérifie que le formulaire d'inscription est présent
-      const firstNameInput = screen.getByPlaceholderText(/First name/i);
-      const lastNameInput = screen.getByPlaceholderText(/Last name/i);
-      const emailInput = screen.getByPlaceholderText(/Email/i);
-      const dobInput = screen.getByPlaceholderText(/Date of birth/i);
-      const cityInput = screen.getByPlaceholderText(/City/i);
-      const postalCodeInput = screen.getByPlaceholderText(/Postal code/i);
-      const submitButton = screen.getByText(/Enregistrer/i);
+    const firstNameInput = screen.getByPlaceholderText(/First name/i);
+    const lastNameInput = screen.getByPlaceholderText(/Last name/i);
+    const emailInput = screen.getByPlaceholderText(/Email/i);
+    const dobInput = screen.getByPlaceholderText(/Date of birth/i);
+    const cityInput = screen.getByPlaceholderText(/City/i);
+    const postalCodeInput = screen.getByPlaceholderText(/Postal code/i);
+    const submitButton = screen.getByText(/Enregistrer/i);
 
-      // Simuler l'entrée d'un utilisateur avec un mauvais code postal
-      fireEvent.change(firstNameInput, { target: { value: 'Zack' } });
-      fireEvent.change(lastNameInput, { target: { value: 'Fair' } });
-      fireEvent.change(emailInput, { target: { value: 'zackfair@gmail.com' } });
-      fireEvent.change(dobInput, { target: { value: '2000-01-01' } });
-      fireEvent.change(cityInput, { target: { value: 'Paris' } });
-      fireEvent.change(postalCodeInput, { target: { value: '75000' } });
+    // Simule une entrée utilisateur valide
+    fireEvent.change(firstNameInput, { target: { value: 'Zack' } });
+    fireEvent.change(lastNameInput, { target: { value: 'Fair' } });
+    fireEvent.change(emailInput, { target: { value: 'zackfair@gmail.com' } });
+    fireEvent.change(dobInput, { target: { value: '2000-01-01' } });
+    fireEvent.change(cityInput, { target: { value: 'Paris' } });
+    fireEvent.change(postalCodeInput, { target: { value: '75000' } });
 
-      // Le bouton "Enregistrer" devrait être activé
-      expect(submitButton).toBeEnabled();
+    expect(submitButton).toBeEnabled();
 
-      // Soumettre le formulaire
-      fireEvent.click(submitButton);      
+    // Soumettre le formulaire
+    fireEvent.click(submitButton);
 
-      // Verifie que la fonction onRegister est appellee avec les bonnes donnees
-      expect(mockOnRegister).toHaveBeenCalledWith({
-        firstName: "Zack",
-        lastName: "Fair",
-        email: "zackfair@gmail.com",
-        dob: "2000-01-01",
-        city: "Paris",
-        postalCode: "75000",
-      });
-
-      // verifie que toast.success est appele avec le message correct
-      expect(toast.success).toHaveBeenCalledWith('Inscription réussie');
-
-      // Verifie que le formulaire est bien reinitialise apres l'enregistrement 
-      expect(firstNameInput.value).toBe('');
-      expect(lastNameInput.value).toBe('');
-      expect(emailInput.value).toBe('');
-      expect(dobInput.value).toBe('');
-      expect(cityInput.value).toBe('');
-      expect(postalCodeInput.value).toBe('');
+    // Vérifie que la fonction onRegister est appelée avec les bonnes données
+    expect(mockOnRegister).toHaveBeenCalledWith({
+      firstName: "Zack",
+      lastName: "Fair",
+      email: "zackfair@gmail.com",
+      dob: "2000-01-01",
+      city: "Paris",
+      postalCode: "75000",
     });
+
+    // Vérifie que toast.success est appelé
+    expect(toast.success).toHaveBeenCalledWith('Inscription réussie');
+
+    // Vérifie que le formulaire est réinitialisé après l'enregistrement
+    expect(firstNameInput.value).toBe('');
+    expect(lastNameInput.value).toBe('');
+    expect(emailInput.value).toBe('');
+    expect(dobInput.value).toBe('');
+    expect(cityInput.value).toBe('');
+    expect(postalCodeInput.value).toBe('');
+  });
 });
