@@ -2,7 +2,7 @@
   "name": "my-app",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://github.com/VioletThe25th/react-integdeploy",
+  "homepage": "https://violetthe25th.github.io/react-integdeploy/",
   "dependencies": {
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^16.0.1",
