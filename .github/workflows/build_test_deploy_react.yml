@@ -27,6 +27,9 @@ jobs:
       - name: Authenticate with npm  
         run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
 
+      - name: Check Git status
+        run: git status
+
       # Install dependencies, build app, and run tests
       - name: Install dependencies, build and test
         run: |
