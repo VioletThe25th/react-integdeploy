@@ -1,5 +1,5 @@
 import { render, screen, fireEvent } from '@testing-library/react';
-import App ,{ handleRegister } from './App';
+import App from './App';
 
 test('renders learn react link', () => {
   render(<App />);

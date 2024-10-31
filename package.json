@@ -1,7 +1,7 @@
 {
-  "name": "my-app",
+  "name": "bilger-app",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
   "homepage": "https://violetthe25th.github.io/react-integdeploy/",
   "dependencies": {
     "@emotion/react": "^11.13.3",
@@ -10,6 +10,7 @@
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^16.0.1",
     "@testing-library/user-event": "^13.5.0",
+    "babel": "^5.8.38",
     "jsdoc": "^4.0.3",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
@@ -20,6 +21,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "build-npm": "cross-env NODE_ENV=production && rm -rf dist && mkdir dist && npx babel src --out-dir dist --copy-files",
     "test": "react-scripts test --coverage --watchAll=false",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
@@ -45,6 +47,12 @@
     ]
   },
   "devDependencies": {
+    "@babel/cli": "^7.25.9",
+    "@babel/core": "^7.26.0",
+    "@babel/plugin-syntax-jsx": "^7.25.9",
+    "@babel/plugin-transform-react-jsx": "^7.25.9",
+    "@babel/preset-react": "^7.25.9",
+    "cross-env": "^7.0.3",
     "gh-pages": "^6.1.1",
     "jest": "^27.5.1",
     "react-test-renderer": "^18.3.1"
