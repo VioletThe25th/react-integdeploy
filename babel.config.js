@@ -4,6 +4,6 @@ module.exports = {
         ['@babel/preset-react', {runtime: 'automatic'}],
     ],
     plugins: [
-        "@babel/plugin-syntax-jsx"
+        "@babel/plugin-syntax-jsx" 
   ]
 };
