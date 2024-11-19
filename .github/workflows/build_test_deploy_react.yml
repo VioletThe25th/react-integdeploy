@@ -66,6 +66,9 @@ jobs:
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
 
+      - name: Build the stack
+        run: docker compose up -d
+
   deploy:
     environment:
       name: github-pages
