@@ -19,7 +19,7 @@ const pool = mysql
  * @param {*} req 
  * @param {*} res 
  * @param {*} next 
- * @returns 
+ * @returns a 200 status if correct
  */
 const getAllUsers = (
     async function (req, res, next) {
