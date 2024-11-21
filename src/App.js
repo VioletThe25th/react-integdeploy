@@ -29,20 +29,20 @@ function App() {
 
   useEffect(() => {
     fetchUsers();
-  }, []);
+  }, [fetchUsers]);
 
-    // Charger les utilisateurs depuis le backend
-    const fetchUsers = async () => {
-      try {
-        const api = axios.create({
-          baseURL: `http://localhost:${port}`,
-        });
-        const response = await api.get(`/users`);
-        setUsers(response.data.users);
-      } catch (error) {
-        console.error(`Erreur lors du chargement des utilisateurs : `, error);
-      }
-    };
+  // Charger les utilisateurs depuis le backend
+  const fetchUsers = useCallback(async () => {
+    try {
+      const api = axios.create({
+        baseURL: `http://localhost:${port}`,
+      });
+      const response = await api.get(`/users`);
+      setUsers(response.data.users);
+    } catch (error) {
+      console.error(`Erreur lors du chargement des utilisateurs : `, error);
+    }
+  }, [port]);
 
   const handleRegister = async (newUser) => {
     try {
