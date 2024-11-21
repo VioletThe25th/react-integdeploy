@@ -27,9 +27,6 @@ function App() {
   const port = process.env.REACT_APP_SERVER_PORT;
   let [usersCount, setUsersCount] = useState(0);
 
-  // État local pour stocker la liste des utilisateurs
-  const [users, setUsers] = useState([]);
-
   /**
    * Gère les users
    */
@@ -67,7 +64,7 @@ function App() {
         
         {/* Colonne contenant la liste des utilisateurs */}
         <Grid item xs={12} md={6}>
-          <UserList users={users} />
+          <UserList users={usersCount} />
         </Grid>
       </Grid>
     </Container>
