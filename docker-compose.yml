@@ -37,7 +37,7 @@ services:
     environment:
       - MYSQL_HOST=db
       - MYSQL_DATABASE
-      - MYSQL_USER
+      - MYSQL_USERNAME
       - MYSQL_ROOT_PASSWORD
       - PORT=8000
     depends_on:

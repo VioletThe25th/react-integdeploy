@@ -15,7 +15,6 @@
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "jsdoc": "^4.0.3",
-    "mysql": "^2.18.1",
     "mysql2": "^3.11.4",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
@@ -70,6 +69,9 @@
       "!src/reportWebVitals.js",
       "!src/index.js",
       "!src/babel.config.js"
+    ],
+    "transformIgnorePatterns": [
+      "node_modules/(?!axios)/"
     ]
   }
 }

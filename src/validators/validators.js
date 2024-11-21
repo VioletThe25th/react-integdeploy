@@ -30,11 +30,11 @@ export const validatePostalCode = (postalCode) => {
 
 /**
  * Validate the date of birth
- * @param {*} dob 
+ * @param {*} birthday 
  * @returns a boolean depending on the regex
  */
-export const validateDOB = (dob) => {
-    const birthDate = new Date(dob);
+export const validateBirthday = (birthday) => {
+    const birthDate = new Date(birthday);
     const today = new Date();
     const age = today.getFullYear() - birthDate.getFullYear();
     return age > 18;

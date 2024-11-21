@@ -1,6 +1,6 @@
 import './App.css';
 import axios from 'axios';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import RegisterForm from './components/RegisterForm';
 import UserList from './components/UserList';
 import { Grid, Container } from '@mui/material';
@@ -19,13 +19,30 @@ function App() {
    * @property {string} firstName - Le prénom de l'utilisateur.
    * @property {string} lastName - Le nom de famille de l'utilisateur.
    * @property {string} email - L'adresse e-mail de l'utilisateur.
-   * @property {string} dob - La date de naissance de l'utilisateur.
+   * @property {string} birthday - La date de naissance de l'utilisateur.
    * @property {string} city - La ville de l'utilisateur.
    * @property {string} postalCode - Le code postal de l'utilisateur.
    */
 
   const port = process.env.REACT_APP_SERVER_PORT;
-  let [usersCount, setUsersCount] = useState(0);
+  let [users, setUsers] = useState([]);
+
+  useEffect(() => {
+    fetchUsers();
+  }, []);
+
+    // Charger les utilisateurs depuis le backend
+    const fetchUsers = async () => {
+      try {
+        const api = axios.create({
+          baseURL: `http://localhost:${port}`,
+        });
+        const response = await api.get(`/users`);
+        setUsers(response.data.users);
+      } catch (error) {
+        console.error(`Erreur lors du chargement des utilisateurs : `, error);
+      }
+    };
 
   const handleRegister = async (newUser) => {
     try {
@@ -35,21 +52,11 @@ function App() {
       // Envoi de l'utilisateur au backend
       await api.post(`/users`, newUser);
       // Recharger les users
-      const response = await api.get(`/users`);
-      setUsersCount(response.data.users.length); // Mise à jour de l'état
+      fetchUsers();
     } catch (error) {
       console.error(`Erreur lors de l'enregistrement de l'utilisateur : `, error);
     }
   };
-
-  // /**
-  //  * Gère l'enregistrement d'un nouvel utilisateur.
-  //  * 
-  //  * @param {User} newUser - Les informations du nouvel utilisateur à ajouter à la liste.
-  //  */
-  // const handleRegister = (newUser) => {
-  //   setUsersCount([...usersCount, newUser]); // Ajout d'un nouvel utilisateur à la liste existante
-  // };
 
   return (
     <Container maxWidth="lg" sx={{ marginTop: 4 }}>
@@ -61,7 +68,7 @@ function App() {
         
         {/* Colonne contenant la liste des utilisateurs */}
         <Grid item xs={12} md={6}>
-          <UserList users={usersCount} />
+          <UserList users={users} />
         </Grid>
       </Grid>
     </Container>

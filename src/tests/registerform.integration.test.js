@@ -25,7 +25,7 @@ describe('Tests d\'intégration - Enregistrement et liste des utilisateurs', () 
     const firstNameInput = screen.getByPlaceholderText(/First name/i);
     const lastNameInput = screen.getByPlaceholderText(/Last name/i);
     const emailInput = screen.getByPlaceholderText(/Email/i);
-    const dobInput = screen.getByPlaceholderText(/Date of birth/i);
+    const BirthdayInput = screen.getByPlaceholderText(/Birthday/i);
     const cityInput = screen.getByPlaceholderText(/City/i);
     const postalCodeInput = screen.getByPlaceholderText(/Postal code/i);
     const submitButton = screen.getByText(/Enregistrer/i);
@@ -34,7 +34,7 @@ describe('Tests d\'intégration - Enregistrement et liste des utilisateurs', () 
     fireEvent.change(firstNameInput, { target: { value: '' } });
     fireEvent.change(lastNameInput, { target: { value: 'Fair' } });
     fireEvent.change(emailInput, { target: { value: 'zackfair@gmail.com' } });
-    fireEvent.change(dobInput, { target: { value: '2000-01-01' } });
+    fireEvent.change(BirthdayInput, { target: { value: '2000-01-01' } });
     fireEvent.change(cityInput, { target: { value: 'Paris' } });
     fireEvent.change(postalCodeInput, { target: { value: '75000' } });
 
@@ -51,7 +51,7 @@ describe('Tests d\'intégration - Enregistrement et liste des utilisateurs', () 
     const firstNameInput = screen.getByPlaceholderText(/First name/i);
     const lastNameInput = screen.getByPlaceholderText(/Last name/i);
     const emailInput = screen.getByPlaceholderText(/Email/i);
-    const dobInput = screen.getByPlaceholderText(/Date of birth/i);
+    const birthdayInput = screen.getByPlaceholderText(/Birthday/i);
     const cityInput = screen.getByPlaceholderText(/City/i);
     const postalCodeInput = screen.getByPlaceholderText(/Postal code/i);
     const submitButton = screen.getByText(/Enregistrer/i);
@@ -60,7 +60,7 @@ describe('Tests d\'intégration - Enregistrement et liste des utilisateurs', () 
     fireEvent.change(firstNameInput, { target: { value: '4534@gjkr' } });
     fireEvent.change(lastNameInput, { target: { value: 'Fair' } });
     fireEvent.change(emailInput, { target: { value: 'zackfair@gmail.com' } });
-    fireEvent.change(dobInput, { target: { value: '2000-01-01' } });
+    fireEvent.change(birthdayInput, { target: { value: '2000-01-01' } });
     fireEvent.change(cityInput, { target: { value: 'Paris' } });
     fireEvent.change(postalCodeInput, { target: { value: '75000' } });
 
@@ -76,7 +76,7 @@ describe('Tests d\'intégration - Enregistrement et liste des utilisateurs', () 
     const firstNameInput = screen.getByPlaceholderText(/First name/i);
     const lastNameInput = screen.getByPlaceholderText(/Last name/i);
     const emailInput = screen.getByPlaceholderText(/Email/i);
-    const dobInput = screen.getByPlaceholderText(/Date of birth/i);
+    const birthdayInput = screen.getByPlaceholderText(/Birthday/i);
     const cityInput = screen.getByPlaceholderText(/City/i);
     const postalCodeInput = screen.getByPlaceholderText(/Postal code/i);
     const submitButton = screen.getByText(/Enregistrer/i);
@@ -85,7 +85,7 @@ describe('Tests d\'intégration - Enregistrement et liste des utilisateurs', () 
     fireEvent.change(firstNameInput, { target: { value: 'Zack' } });
     fireEvent.change(lastNameInput, { target: { value: '458@wejro' } });
     fireEvent.change(emailInput, { target: { value: 'zackfair@gmail.com' } });
-    fireEvent.change(dobInput, { target: { value: '2000-01-01' } });
+    fireEvent.change(birthdayInput, { target: { value: '2000-01-01' } });
     fireEvent.change(cityInput, { target: { value: 'Paris' } });
     fireEvent.change(postalCodeInput, { target: { value: '75000' } });
 
@@ -101,7 +101,7 @@ describe('Tests d\'intégration - Enregistrement et liste des utilisateurs', () 
     const firstNameInput = screen.getByPlaceholderText(/First name/i);
     const lastNameInput = screen.getByPlaceholderText(/Last name/i);
     const emailInput = screen.getByPlaceholderText(/Email/i);
-    const dobInput = screen.getByPlaceholderText(/Date of birth/i);
+    const birthdayInput = screen.getByPlaceholderText(/Birthday/i);
     const cityInput = screen.getByPlaceholderText(/City/i);
     const postalCodeInput = screen.getByPlaceholderText(/Postal code/i);
     const submitButton = screen.getByText(/Enregistrer/i);
@@ -110,7 +110,7 @@ describe('Tests d\'intégration - Enregistrement et liste des utilisateurs', () 
     fireEvent.change(firstNameInput, { target: { value: 'Zack' } });
     fireEvent.change(lastNameInput, { target: { value: 'Fair' } });
     fireEvent.change(emailInput, { target: { value: 'zackfair@gmail.com' } });
-    fireEvent.change(dobInput, { target: { value: '2010-01-01' } });
+    fireEvent.change(birthdayInput, { target: { value: '2010-01-01' } });
     fireEvent.change(cityInput, { target: { value: 'Paris' } });
     fireEvent.change(postalCodeInput, { target: { value: '75000' } });
 
@@ -126,7 +126,7 @@ describe('Tests d\'intégration - Enregistrement et liste des utilisateurs', () 
     const firstNameInput = screen.getByPlaceholderText(/First name/i);
     const lastNameInput = screen.getByPlaceholderText(/Last name/i);
     const emailInput = screen.getByPlaceholderText(/Email/i);
-    const dobInput = screen.getByPlaceholderText(/Date of birth/i);
+    const birthdayInput = screen.getByPlaceholderText(/Birthday/i);
     const cityInput = screen.getByPlaceholderText(/City/i);
     const postalCodeInput = screen.getByPlaceholderText(/Postal code/i);
     const submitButton = screen.getByText(/Enregistrer/i);
@@ -135,7 +135,7 @@ describe('Tests d\'intégration - Enregistrement et liste des utilisateurs', () 
     fireEvent.change(firstNameInput, { target: { value: 'Zack' } });
     fireEvent.change(lastNameInput, { target: { value: 'Fair' } });
     fireEvent.change(emailInput, { target: { value: 'zackfair@gmail.com' } });
-    fireEvent.change(dobInput, { target: { value: '2000-01-01' } });
+    fireEvent.change(birthdayInput, { target: { value: '2000-01-01' } });
     fireEvent.change(cityInput, { target: { value: 'Paris' } });
     fireEvent.change(postalCodeInput, { target: { value: '750' } });
 
@@ -151,7 +151,7 @@ describe('Tests d\'intégration - Enregistrement et liste des utilisateurs', () 
     const firstNameInput = screen.getByPlaceholderText(/First name/i);
     const lastNameInput = screen.getByPlaceholderText(/Last name/i);
     const emailInput = screen.getByPlaceholderText(/Email/i);
-    const dobInput = screen.getByPlaceholderText(/Date of birth/i);
+    const birthdayInput = screen.getByPlaceholderText(/Birthday/i);
     const cityInput = screen.getByPlaceholderText(/City/i);
     const postalCodeInput = screen.getByPlaceholderText(/Postal code/i);
     const submitButton = screen.getByText(/Enregistrer/i);
@@ -160,7 +160,7 @@ describe('Tests d\'intégration - Enregistrement et liste des utilisateurs', () 
     fireEvent.change(firstNameInput, { target: { value: 'Zack' } });
     fireEvent.change(lastNameInput, { target: { value: 'Fair' } });
     fireEvent.change(emailInput, { target: { value: 'zackfair' } });
-    fireEvent.change(dobInput, { target: { value: '2000-01-01' } });
+    fireEvent.change(birthdayInput, { target: { value: '2000-01-01' } });
     fireEvent.change(cityInput, { target: { value: 'Paris' } });
     fireEvent.change(postalCodeInput, { target: { value: '75000' } });
 
@@ -178,7 +178,7 @@ describe('Tests d\'intégration - Enregistrement et liste des utilisateurs', () 
     const firstNameInput = screen.getByPlaceholderText(/First name/i);
     const lastNameInput = screen.getByPlaceholderText(/Last name/i);
     const emailInput = screen.getByPlaceholderText(/Email/i);
-    const dobInput = screen.getByPlaceholderText(/Date of birth/i);
+    const birthdayInput = screen.getByPlaceholderText(/Birthday/i);
     const cityInput = screen.getByPlaceholderText(/City/i);
     const postalCodeInput = screen.getByPlaceholderText(/Postal code/i);
     const submitButton = screen.getByText(/Enregistrer/i);
@@ -187,7 +187,7 @@ describe('Tests d\'intégration - Enregistrement et liste des utilisateurs', () 
     fireEvent.change(firstNameInput, { target: { value: 'Zack' } });
     fireEvent.change(lastNameInput, { target: { value: 'Fair' } });
     fireEvent.change(emailInput, { target: { value: 'zackfair@gmail.com' } });
-    fireEvent.change(dobInput, { target: { value: '2000-01-01' } });
+    fireEvent.change(birthdayInput, { target: { value: '2000-01-01' } });
     fireEvent.change(cityInput, { target: { value: 'Paris' } });
     fireEvent.change(postalCodeInput, { target: { value: '75000' } });
 
@@ -201,7 +201,7 @@ describe('Tests d\'intégration - Enregistrement et liste des utilisateurs', () 
       firstName: "Zack",
       lastName: "Fair",
       email: "zackfair@gmail.com",
-      dob: "2000-01-01",
+      birthday: "2000-01-01",
       city: "Paris",
       postalCode: "75000",
     });
@@ -213,7 +213,7 @@ describe('Tests d\'intégration - Enregistrement et liste des utilisateurs', () 
     expect(firstNameInput.value).toBe('');
     expect(lastNameInput.value).toBe('');
     expect(emailInput.value).toBe('');
-    expect(dobInput.value).toBe('');
+    expect(birthdayInput.value).toBe('');
     expect(cityInput.value).toBe('');
     expect(postalCodeInput.value).toBe('');
   });

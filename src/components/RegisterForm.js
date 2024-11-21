@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { validateName, validateEmail, validatePostalCode, validateDOB } from '../validators/validators';
+import { validateName, validateEmail, validatePostalCode, validateBirthday } from '../validators/validators';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { TextField, Button, Grid, Typography, Container } from '@mui/material';
@@ -20,7 +20,7 @@ const RegisterForm = ({ onRegister }) => {
      * @property {string} firstName - The user's first name.
      * @property {string} lastName - The user's last name.
      * @property {string} email - The user's email.
-     * @property {string} dob - The user's date of birth (YYYY-MM-DD format).
+     * @property {string} birthday - The user's date of birth (YYYY-MM-DD format).
      * @property {string} city - The user's city.
      * @property {string} postalCode - The user's postal code.
      */
@@ -28,7 +28,7 @@ const RegisterForm = ({ onRegister }) => {
         firstName: '',
         lastName: '',
         email: '',
-        dob: '',
+        birthday: '',
         city: '',
         postalCode: '',
     });
@@ -39,7 +39,7 @@ const RegisterForm = ({ onRegister }) => {
      * @property {string} firstName - Error message for the first name field.
      * @property {string} lastName - Error message for the last name field.
      * @property {string} email - Error message for the email field.
-     * @property {string} dob - Error message for the date of birth field.
+     * @property {string} birthday - Error message for the date of birth field.
      * @property {string} city - Error message for the city field.
      * @property {string} postalCode - Error message for the postal code field.
      */
@@ -72,8 +72,8 @@ const RegisterForm = ({ onRegister }) => {
             newErrors[name] = validateEmail(value) ? '' : 'Invalid Email';
         } else if (name === 'postalCode') {
             newErrors[name] = validatePostalCode(value) ? '' : 'Invalid postal code';
-        } else if (name === 'dob') {
-            newErrors[name] = validateDOB(value) ? '' : 'age < 18';
+        } else if (name === 'birthday') {
+            newErrors[name] = validateBirthday(value) ? '' : 'age < 18';
         }
         setErrors(newErrors);
     
@@ -83,7 +83,7 @@ const RegisterForm = ({ onRegister }) => {
             validateName(newFormData.lastName) &&
             validateEmail(newFormData.email) &&
             validatePostalCode(newFormData.postalCode) &&
-            validateDOB(newFormData.dob);
+            validateBirthday(newFormData.birthday);
     
         // Met à jour l'état isFormValid avec la nouvelle validation
         setIsFormValid(isFormCurrentlyValid);
@@ -105,7 +105,7 @@ const RegisterForm = ({ onRegister }) => {
                 firstName: '',
                 lastName: '',
                 email: '',
-                dob: '',
+                birthday: '',
                 city: '',
                 postalCode: '',
             });
@@ -163,12 +163,12 @@ const RegisterForm = ({ onRegister }) => {
                             fullWidth
                             label="Date de naissance"
                             type="date"
-                            name="dob"
-                            placeholder='Date of birth'
-                            value={formData.dob}
+                            name="birthday"
+                            placeholder='Birthday'
+                            value={formData.birthday}
                             onChange={handleChange}
-                            error={!!errors.dob}
-                            helperText={errors.dob}
+                            error={!!errors.birthday}
+                            helperText={errors.birthday}
                             InputLabelProps={{
                                 shrink: true,
                             }}

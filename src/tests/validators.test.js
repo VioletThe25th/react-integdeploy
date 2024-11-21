@@ -1,10 +1,10 @@
-import { validateName, validateEmail, validatePostalCode, validateDOB } from "../validators/validators";
+import { validateName, validateEmail, validatePostalCode, validateBirthday } from "../validators/validators";
 
 /**
  * Test suite for validation functions.
  */
 
- /**
+/**
   * Test that validates correct names.
   * 
   * This test ensures that the `validateName` function returns true for valid names,
@@ -66,19 +66,19 @@ test('Invalide un code postal incorrect', () => {
 /**
  * Test that validates a date of birth that is over 18 years old.
  * 
- * This test checks that the `validateDOB` function correctly returns true for dates of birth where the age is 18 or above.
+ * This test checks that the `validateBirthday` function correctly returns true for dates of birth where the age is 18 or above.
  */
 test('valide une date de naissance supérieure à 18 ans', () => {
-    const validDOB = '2000-01-01';
-    expect(validateDOB(validDOB)).toBe(true);
+    const validBirthday = '2000-01-01';
+    expect(validateBirthday(validBirthday)).toBe(true);
 });
-  
+
 /**
  * Test that invalidates a date of birth that is under 18 years old.
  * 
- * This test checks that the `validateDOB` function correctly returns false for dates of birth where the age is under 18.
+ * This test checks that the `validateBirthday` function correctly returns false for dates of birth where the age is under 18.
  */
 test('invalide une date de naissance inférieure à 18 ans', () => {
-    const invalidDOB = '2010-01-01';
-    expect(validateDOB(invalidDOB)).toBe(false);
+    const invalidBirthday = '2010-01-01';
+    expect(validateBirthday(invalidBirthday)).toBe(false);
 });

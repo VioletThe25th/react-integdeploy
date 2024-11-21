@@ -20,7 +20,7 @@ test('ajoute un nouvel utilisateur à la liste', () => {
   fireEvent.change(screen.getByPlaceholderText(/First name/i), { target: { value: 'Zack' } });
   fireEvent.change(screen.getByPlaceholderText(/Last name/i), { target: { value: 'Fair' } });
   fireEvent.change(screen.getByPlaceholderText(/Email/i), { target: { value: 'zack.fair@gmail.com' } });
-  fireEvent.change(screen.getByPlaceholderText(/Date of birth/i), { target: { value: '2000-01-01' } });
+  fireEvent.change(screen.getByPlaceholderText(/Birthday/i), { target: { value: '2000-01-01' } });
   fireEvent.change(screen.getByPlaceholderText(/City/i), { target: { value: 'Paris' } });
   fireEvent.change(screen.getByPlaceholderText(/Postal code/i), { target: { value: '75000' } });
 
