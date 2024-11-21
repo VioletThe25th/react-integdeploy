@@ -5,6 +5,19 @@ import RegisterForm from './components/RegisterForm';
 import UserList from './components/UserList';
 import { Grid, Container } from '@mui/material';
 
+
+// Charger les utilisateurs depuis le backend
+const fetchUsers = async () => {
+  try {
+    const api = axios.create({
+      baseURL: `http://localhost:${port}`,
+    });
+    const response = await api.get(`/users`);
+    setUsers(response.data.users);
+  } catch (error) {
+    console.error(`Erreur lors du chargement des utilisateurs : `, error);
+  }
+};
 /**
  * Composant principal de l'application qui gère l'enregistrement des utilisateurs et leur affichage.
  * 
@@ -29,20 +42,7 @@ function App() {
 
   useEffect(() => {
     fetchUsers();
-  }, [fetchUsers]);
-
-  // Charger les utilisateurs depuis le backend
-  const fetchUsers = useCallback(async () => {
-    try {
-      const api = axios.create({
-        baseURL: `http://localhost:${port}`,
-      });
-      const response = await api.get(`/users`);
-      setUsers(response.data.users);
-    } catch (error) {
-      console.error(`Erreur lors du chargement des utilisateurs : `, error);
-    }
-  }, [port]);
+  }, []);
 
   const handleRegister = async (newUser) => {
     try {
