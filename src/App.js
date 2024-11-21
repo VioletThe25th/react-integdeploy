@@ -51,7 +51,7 @@ function App() {
   //  * @param {User} newUser - Les informations du nouvel utilisateur à ajouter à la liste.
   //  */
   // const handleRegister = (newUser) => {
-  //   setUsers([...users, newUser]); // Ajout d'un nouvel utilisateur à la liste existante
+  //   setUsersCount([...usersCount, newUser]); // Ajout d'un nouvel utilisateur à la liste existante
   // };
 
   return (
@@ -59,7 +59,7 @@ function App() {
       <Grid container spacing={2}>
         {/* Colonne contenant le formulaire d'inscription */}
         <Grid item xs={12} md={6}>
-          <p>{usersCount} user(s) already registered </p>
+          <RegisterForm onRegister={countUsers} />
         </Grid>
         
         {/* Colonne contenant la liste des utilisateurs */}
