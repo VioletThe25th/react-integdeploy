@@ -67,7 +67,13 @@ jobs:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
 
       - name: Build the stack
-        run: docker compose up -d
+        run: docker-compose -f docker-compose.yml up -d
+
+      - name: Run e2e tests with cypress
+        uses: cypress-io/github-action@v6
+
+      - name: Stop the stack
+        run: docker-compose -f docker-compose.yml down
 
   deploy:
     environment:

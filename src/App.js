@@ -1,6 +1,6 @@
 import './App.css';
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import RegisterForm from './components/RegisterForm';
 import UserList from './components/UserList';
 import { Grid, Container } from '@mui/material';
@@ -27,23 +27,20 @@ function App() {
   const port = process.env.REACT_APP_SERVER_PORT;
   let [usersCount, setUsersCount] = useState(0);
 
-  /**
-   * Gère les users
-   */
-  useEffect(() => {
-    async function countUsers() {
-      try {
-        const api = axios.create({
-          baseURL: `http://localhost:${port}`
-        });
-        const response = await api.get(`/users`);
-        setUsersCount(response.data.users.length)
-      } catch (error) {
-        console.error(error);
-      }
+  const handleRegister = async (newUser) => {
+    try {
+      const api = axios.create({
+        baseURL: `http://localhost:${port}`
+      });
+      // Envoi de l'utilisateur au backend
+      await api.post(`/users`, newUser);
+      // Recharger les users
+      const response = await api.get(`/users`);
+      setUsersCount(response.data.users.length); // Mise à jour de l'état
+    } catch (error) {
+      console.error(`Erreur lors de l'enregistrement de l'utilisateur : `, error);
     }
-    countUsers()
-  }, [])
+  };
 
   // /**
   //  * Gère l'enregistrement d'un nouvel utilisateur.
@@ -59,7 +56,7 @@ function App() {
       <Grid container spacing={2}>
         {/* Colonne contenant le formulaire d'inscription */}
         <Grid item xs={12} md={6}>
-          <RegisterForm onRegister={countUsers} />
+          <RegisterForm onRegister={handleRegister} />
         </Grid>
         
         {/* Colonne contenant la liste des utilisateurs */}
