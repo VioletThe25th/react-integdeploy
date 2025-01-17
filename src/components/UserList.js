@@ -15,12 +15,17 @@ import { List, ListItem, ListItemText, Typography, Container, Paper } from '@mui
  * @returns {JSX.Element} A styled list of users with their first name, last name, city, and postal code.
  */
 const UserList = ({ users }) => {
+  const userCount = users.length; // Calculate the number of users
+  
   return (
     <Container maxWidth="sm">
       <Paper elevation={3} sx={{ padding: 2 }}>
+        {/* Display the total number of registered users */}
         <Typography variant="h5" gutterBottom align="center">
-          Liste des utilisateurs
+          {userCount} user(s) already registered
         </Typography>
+
+        {/* Display the list of users */}
         <List>
           {users.map((user, index) => (
             <ListItem key={index} divider>
