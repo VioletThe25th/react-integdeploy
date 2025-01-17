@@ -1,9 +1,10 @@
 import './App.css';
-import axios from 'axios';
 import React, { useCallback, useEffect, useState } from 'react';
 import RegisterForm from './components/RegisterForm';
 import UserList from './components/UserList';
 import { Grid, Container } from '@mui/material';
+import { getAllUsers, createUser } from './services/api'; // Import des fonctions API
+
 
 /**
  * Composant principal de l'application qui gère l'enregistrement des utilisateurs et leur affichage.
@@ -24,21 +25,17 @@ function App() {
    * @property {string} postalCode - Le code postal de l'utilisateur.
    */
 
-  const port = process.env.REACT_APP_SERVER_PORT;
   let [users, setUsers] = useState([]);
 
   // Charger les utilisateurs depuis le backend
   const fetchUsers = useCallback(async () => {
     try {
-      const api = axios.create({
-        baseURL: `http://localhost:${port}`,
-      });
-      const response = await api.get(`/users`);
-      setUsers(response.data.users);
+      const users = await getAllUsers();
+      setUsers(users); // Met à jour l'état avec les utilisateurs récupérés
     } catch (error) {
       console.error(`Erreur lors du chargement des utilisateurs : `, error);
     }
-  }, [port]);
+  }, []);
 
   useEffect(() => {
     fetchUsers();
@@ -46,13 +43,8 @@ function App() {
 
   const handleRegister = async (newUser) => {
     try {
-      const api = axios.create({
-        baseURL: `http://localhost:${port}`
-      });
-      // Envoi de l'utilisateur au backend
-      await api.post(`/users`, newUser);
-      // Recharger les users
-      fetchUsers();
+      await createUser(newUser); // Envoie l'utilisateur au backend
+      fetchUsers(); // Recharger les utilisateurs
     } catch (error) {
       console.error(`Erreur lors de l'enregistrement de l'utilisateur : `, error);
     }
