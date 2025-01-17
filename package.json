@@ -27,7 +27,6 @@
     "build": "react-scripts build",
     "build-npm": "cross-env NODE_ENV=production && rm -rf dist && mkdir dist && npx babel src --out-dir dist --copy-files",
     "test": "react-scripts test --coverage --watchAll=false --setupFiles=./src/.jest/setEnvVars.js",
-    "test:coverage": "react-scripts test --coverage",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
