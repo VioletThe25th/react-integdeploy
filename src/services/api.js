@@ -28,7 +28,6 @@ export const createUser = async (userData) => {
 export const countUsers = async () => {
     try {
       const response = await axios.get(`${SERVER_URL}/users`);
-      console.log(response);
       if (response.data && response.data.users) {
         return response.data.users.length;
       }

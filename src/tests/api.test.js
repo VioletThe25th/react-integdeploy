@@ -1,86 +1,81 @@
-import * as axios from "axios";
+import axios from 'axios';
 import { countUsers, getAllUsers, createUser } from '../services/api';
 
 jest.mock('axios');
 
 // Pour eviter les messages d'erreurs attendu dans les logs de la console
-/* beforeAll(() => {
+beforeAll(() => {
   jest.spyOn(console, 'error').mockImplementation(() => {});
 });
 
 afterAll(() => {
   console.error.mockRestore();
 });
-*/
-describe.only('API Tests', () => {
-  describe.only('countUsers', () => {
-    it.only('fetches successfully data from an API', async () => {
-      const data = {
-        data: {
-          users: [
-            {
-              id: '1',
-              nom: 'a',
-              prenom: 'b',
-              email: 'c@c.fr',
-            },
-          ],
-        },
-      };
 
-      axios.get.mockImplementationOnce(() => Promise.resolve({data: "toto"}));
+describe('API Tests', () => {
+  describe('countUsers', () => {
+    it('fetches successfully data from an API', async () => {
+      const data = {
+        users: [
+          {
+            id: '1',
+            nom: 'a',
+            prenom: 'b',
+            email: 'c@c.fr',
+          },
+        ],
+      };
+      axios.get.mockImplementationOnce(() => Promise.resolve({ data }))
       await expect(countUsers()).resolves.toEqual(1);
       expect(axios.get).toHaveBeenCalledWith(
-        `${process.env.SERVER_URL}/users`,
-        );
+          `${process.env.SERVER_URL}/users`,
+      );
     });
 
     it('handles API errors gracefully', async () => {
       axios.get.mockImplementationOnce(() =>
-        Promise.reject(new Error('API Error'))
+          Promise.reject(new Error('API Error'))
       );
 
       await expect(countUsers()).rejects.toThrow('API Error');
     });
   });
 
-  describe.skip('getAllUsers', () => {
+  describe('getAllUsers', () => {
     it('fetches a list of users successfully', async () => {
       const data = {
-        data: {
-          users: [
-            {
-              id: '1',
-              nom: 'c',
-              prenom: 'd',
-              email: 'e@e.fr',
-            },
-            {
-              id: '2',
-              nom: 'f',
-              prenom: 'g',
-              email: 'h@h.f',
-            },
-          ],
-        },
+        users: [
+          {
+            id: '1',
+            nom: 'c',
+            prenom: 'd',
+            email: 'e@e.fr',
+          },
+          {
+            id: '2',
+            nom: 'f',
+            prenom: 'g',
+            email: 'h@h.f',
+          },
+        ],
       };
 
-      axios.get = jest.fn(() => Promise.resolve(data));
+      axios.get = jest.fn(() => Promise.resolve({data}));
       const result = await getAllUsers();
-      expect(result).toEqual(data.data);
+      expect(result).toEqual(data.users);
       expect(axios.get).toHaveBeenCalledWith(`${process.env.SERVER_URL}/users`);
     });
 
     it('handles API errors gracefully', async () => {
       axios.get.mockImplementationOnce(() =>
-        Promise.reject(new Error('API Error'))
+          Promise.reject(new Error('API Error'))
       );
 
       await expect(getAllUsers()).rejects.toThrow('API Error');
     });
   });
 
-  describe.skip('createUser', () => {
+  describe('createUser', () => {
     it('creates a new user successfully', async () => {
       const newUser = {
         nom: 'i',
@@ -89,20 +84,18 @@ describe.only('API Tests', () => {
       };
 
       const data = {
-        data: {
-          user: {
-            id: '3',
-            ...newUser,
-          },
+        user: {
+          id: '3',
+          ...newUser,
         },
       };
 
-      axios.post = jest.fn(() => Promise.resolve(data));
+      axios.post = jest.fn(() => Promise.resolve({data}));
       const result = await createUser(newUser);
-      expect(result).toEqual(data.data);
+      expect(result).toEqual(data);
       expect(axios.post).toHaveBeenCalledWith(
-        `${process.env.SERVER_URL}/users`,
-        newUser
+          `${process.env.SERVER_URL}/users`,
+          newUser
       );
     });
 
@@ -114,7 +107,7 @@ describe.only('API Tests', () => {
       };
 
       axios.post.mockImplementationOnce(() =>
-        Promise.reject(new Error('API Error'))
+          Promise.reject(new Error('API Error'))
       );
 
       await expect(createUser(newUser)).rejects.toThrow('API Error');

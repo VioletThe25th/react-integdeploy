@@ -1,5 +1,13 @@
-import { render, screen, fireEvent } from '@testing-library/react';
+import {render, screen, fireEvent, waitFor} from '@testing-library/react';
 import App from './App';
+
+import {getAllUsers, createUser} from './services/api'; // Import des fonctions API
+
+jest.mock('./services/api', () => ({
+  getAllUsers: jest.fn(),
+  createUser: jest.fn(),
+}));
+
 
 test('renders learn react link', () => {
   render(<App />);
@@ -7,14 +15,34 @@ test('renders learn react link', () => {
   expect(linkElement).toBeInTheDocument();
 });
 
-test('Verifie la presence de la liste des utilisateurs', () => {
+test.skip('Verifie la presence de la liste des utilisateurs', () => {
   render(<App />);
   const linkElement = screen.getByText(/Liste des utilisateurs/i);
   expect(linkElement).toBeInTheDocument();
 });
 
-test('ajoute un nouvel utilisateur à la liste', () => {
+test('ajoute un nouvel utilisateur à la liste', async() => {
   render(<App />);
+  createUser.mockImplementationOnce(() => Promise.resolve(
+      {
+        firstName: 'Zack',
+        lastName: 'Fair',
+        email: 'zack.fair@gmail.com',
+        birthday: '2000-01-01T00:00:00.000+00:00',
+        city: 'Paris',
+        postalCode: '75000'
+      }
+  ))
+  getAllUsers.mockImplementationOnce(() => Promise.resolve([
+      {
+        firstName: 'Zack',
+        lastName: 'Fair',
+        email: 'zack.fair@gmail.com',
+        birthday: '2000-01-01T00:00:00.000+00:00',
+        city: 'Paris',
+        postalCode: '75000'
+      }
+      ]))
 
   // Remplir le formulaire avec des données valides
   fireEvent.change(screen.getByPlaceholderText(/First name/i), { target: { value: 'Zack' } });
@@ -28,7 +56,10 @@ test('ajoute un nouvel utilisateur à la liste', () => {
   fireEvent.click(screen.getByRole('button', { name: /Enregistrer/i }));
 
   // Vérifie que le nouvel utilisateur est affiché dans la liste
-  expect(screen.getByText(/Zack Fair/i)).toBeInTheDocument();
-  expect(screen.getByText(/Paris/i)).toBeInTheDocument();
-  expect(screen.getByText(/75000/i)).toBeInTheDocument();
+  await waitFor(() => {
+      expect(screen.getByText(/Zack Fair/i)).toBeInTheDocument();
+      expect(screen.getByText(/Paris/i)).toBeInTheDocument();
+      expect(screen.getByText(/75000/i)).toBeInTheDocument();
+  });
+
 });

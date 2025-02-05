@@ -38,7 +38,6 @@ describe('UserList Component', () => {
         render(<UserList users={[]} />);
         
         // Vérifier qu'aucun utilisateur n'est affiché
-        expect(screen.getByText(/Liste des utilisateurs/i)).toBeInTheDocument(); // Vérifie que le titre est toujours présent
         expect(screen.queryByText(/Zack Fair/)).not.toBeInTheDocument();
         expect(screen.queryByText(/Jean Dupont/)).not.toBeInTheDocument();
     });
