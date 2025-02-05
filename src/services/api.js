@@ -26,11 +26,15 @@ export const createUser = async (userData) => {
 
 // Fonction pour compter les utilisateurs
 export const countUsers = async () => {
-  try {
-    const response = await axios.get(`${SERVER_URL}/users`);
-    return response.data.users.length;
-  } catch (error) {
-    console.error("Erreur lors du comptage des utilisateurs :", error);
-    throw error;
-  }
-};
+    try {
+      const response = await axios.get(`${SERVER_URL}/users`);
+      console.log(response);
+      if (response.data && response.data.users) {
+        return response.data.users.length;
+      }
+      throw new Error("Invalid API response");
+    } catch (error) {
+      console.error("Erreur lors du comptage des utilisateurs :", error);
+      throw error;
+    }
+  };

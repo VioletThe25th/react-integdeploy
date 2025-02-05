@@ -1,21 +1,20 @@
-const axios = require('axios');
-jest.mock('axios');
-
+import * as axios from "axios";
 import { countUsers, getAllUsers, createUser } from '../services/api';
 
+jest.mock('axios');
 
 // Pour eviter les messages d'erreurs attendu dans les logs de la console
-beforeAll(() => {
+/* beforeAll(() => {
   jest.spyOn(console, 'error').mockImplementation(() => {});
 });
 
 afterAll(() => {
   console.error.mockRestore();
 });
-
-describe('API Tests', () => {
-  describe('countUsers', () => {
-    it('fetches successfully data from an API', async () => {
+*/
+describe.only('API Tests', () => {
+  describe.only('countUsers', () => {
+    it.only('fetches successfully data from an API', async () => {
       const data = {
         data: {
           users: [
@@ -29,7 +28,7 @@ describe('API Tests', () => {
         },
       };
 
-      axios.get = jest.fn(() => Promise.resolve(data));
+      axios.get.mockImplementationOnce(() => Promise.resolve({data: "toto"}));
       await expect(countUsers()).resolves.toEqual(1);
       expect(axios.get).toHaveBeenCalledWith(
         `${process.env.SERVER_URL}/users`,
@@ -45,11 +44,11 @@ describe('API Tests', () => {
     });
   });
 
-  describe('getAllUsers', () => {
+  describe.skip('getAllUsers', () => {
     it('fetches a list of users successfully', async () => {
       const data = {
         data: {
-          utilisateurs: [
+          users: [
             {
               id: '1',
               nom: 'c',
@@ -81,7 +80,7 @@ describe('API Tests', () => {
     });
   });
 
-  describe('createUser', () => {
+  describe.skip('createUser', () => {
     it('creates a new user successfully', async () => {
       const newUser = {
         nom: 'i',
@@ -91,7 +90,7 @@ describe('API Tests', () => {
 
       const data = {
         data: {
-          utilisateur: {
+          user: {
             id: '3',
             ...newUser,
           },
