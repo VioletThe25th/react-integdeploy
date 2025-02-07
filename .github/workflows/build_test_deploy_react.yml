@@ -37,7 +37,7 @@ jobs:
       - name: Authenticate with npm
         run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
 
-      # Vérification et synchronisation de la version avec celle de npm
+        # Vérification et synchronisation de la version avec celle de npm
       - name: Check and synchronize package version
         id: check_version
         run: |
@@ -50,6 +50,10 @@ jobs:
           if [ "$LOCAL_VERSION" != "$NPM_VERSION" ]; then
             echo "Versions are different. Syncing local version..."
             npm version $NPM_VERSION --no-git-tag-version
+
+            git config --global user.email "bilgerjeremy5705@gmail.com"
+            git config --global user.name "VioletThe25th"
+
             git add package.json package-lock.json
             git commit -m "Sync package version with published version"
             git push origin master
@@ -58,6 +62,7 @@ jobs:
             echo "Versions are already in sync."
             echo "VERSION_SYNCED=false" >> $GITHUB_ENV
           fi
+
 
       # Vérification si package.json a été modifié après synchronisation
       - name: Check if package.json version was modified
