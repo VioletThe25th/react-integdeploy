@@ -37,7 +37,7 @@ jobs:
       - name: Authenticate with npm
         run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
 
-        # Vérification et synchronisation de la version avec celle de npm
+      # Vérification et synchronisation de la version
       - name: Check and synchronize package version
         id: check_version
         run: |
@@ -63,24 +63,7 @@ jobs:
             echo "VERSION_SYNCED=false" >> $GITHUB_ENV
           fi
 
-
-      # Vérification si package.json a été modifié après synchronisation
-      - name: Check if package.json version was modified
-        id: check_version_commit
-        run: |
-          git fetch --unshallow
-          PREV_COMMIT=$(git rev-parse HEAD^)
-          OLD_VERSION=$(git show $PREV_COMMIT:package.json | jq -r '.version')
-          NEW_VERSION=$(jq -r '.version' package.json)
-          if [ "$OLD_VERSION" != "$NEW_VERSION" ]; then
-            echo "version_changed=true" >> $GITHUB_ENV
-            echo "Old version: $OLD_VERSION"
-            echo "New version: $NEW_VERSION"
-          else
-            echo "version_changed=false" >> $GITHUB_ENV
-          fi
-
-      # Incrémentation de la version si la version a été synchronisée avec npm
+      # Incrémentation de la version si nécessaire
       - name: Increment version if synced
         if: env.VERSION_SYNCED == 'true'
         run: |
@@ -92,9 +75,9 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-      # Build et publication sur NPM (uniquement si package.json a changé)
+      # Build et publication sur NPM (uniquement si la version a été mise à jour)
       - name: Build and publish package on NPM
-        if: env.version_changed == 'true'
+        if: env.VERSION_UPDATED == 'true'
         run: |
           git config --global user.email "bilgerjeremy5705@gmail.com"
           git config --global user.name "VioletThe25th"
