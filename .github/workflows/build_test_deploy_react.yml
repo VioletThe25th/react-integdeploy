@@ -5,6 +5,9 @@ on:
     branches: [master]
   pull_request:
     branches: [master]
+    # listen the repo dispatch event by the name of 'dispatch-event'
+  repository_dispatch:
+    types: [dispatch-event]
 
 jobs:
   build_test:
