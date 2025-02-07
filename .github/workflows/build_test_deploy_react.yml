@@ -5,7 +5,6 @@ on:
     branches: [master]
   pull_request:
     branches: [master]
-    # listen the repo dispatch event by the name of 'dispatch-event'
   repository_dispatch:
     types: [dispatch-event]
 
@@ -35,18 +34,66 @@ jobs:
           npm run build --if-present
           npm test
 
-      - name: Authenticate with npm  
+      - name: Authenticate with npm
         run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
 
-      - name: Check Git status
-        run: git status
+      # Vérification et synchronisation de la version avec celle de npm
+      - name: Check and synchronize package version
+        id: check_version
+        run: |
+          LOCAL_VERSION=$(node -p "require('./package.json').version")
+          NPM_VERSION=$(npm view bilger-app version || echo "0.0.0")
 
-      - name: build and publish package on NPM
+          echo "Local version: $LOCAL_VERSION"
+          echo "Published version: $NPM_VERSION"
+
+          if [ "$LOCAL_VERSION" != "$NPM_VERSION" ]; then
+            echo "Versions are different. Syncing local version..."
+            npm version $NPM_VERSION --no-git-tag-version
+            git add package.json package-lock.json
+            git commit -m "Sync package version with published version"
+            git push origin master
+            echo "VERSION_SYNCED=true" >> $GITHUB_ENV
+          else
+            echo "Versions are already in sync."
+            echo "VERSION_SYNCED=false" >> $GITHUB_ENV
+          fi
+
+      # Vérification si package.json a été modifié après synchronisation
+      - name: Check if package.json version was modified
+        id: check_version_commit
+        run: |
+          git fetch --unshallow
+          PREV_COMMIT=$(git rev-parse HEAD^)
+          OLD_VERSION=$(git show $PREV_COMMIT:package.json | jq -r '.version')
+          NEW_VERSION=$(jq -r '.version' package.json)
+          if [ "$OLD_VERSION" != "$NEW_VERSION" ]; then
+            echo "version_changed=true" >> $GITHUB_ENV
+            echo "Old version: $OLD_VERSION"
+            echo "New version: $NEW_VERSION"
+          else
+            echo "version_changed=false" >> $GITHUB_ENV
+          fi
+
+      # Incrémentation de la version si la version a été synchronisée avec npm
+      - name: Increment version if synced
+        if: env.VERSION_SYNCED == 'true'
+        run: |
+          npm version patch --no-git-tag-version
+          git add package.json package-lock.json
+          git commit -m "Auto-increment version for new release"
+          git push origin master
+          echo "VERSION_UPDATED=true" >> $GITHUB_ENV
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      # Build et publication sur NPM (uniquement si package.json a changé)
+      - name: Build and publish package on NPM
+        if: env.version_changed == 'true'
         run: |
           git config --global user.email "bilgerjeremy5705@gmail.com"
           git config --global user.name "VioletThe25th"
           npm run build-npm
-          npm version patch
           npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
@@ -60,7 +107,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: build        # React build output
+          path: build
           if-no-files-found: error
 
       # Upload coverage reports to Codecov
@@ -72,7 +119,7 @@ jobs:
       - name: Build the stack
         run: docker-compose -f docker-compose.yml up -d
 
-      - name: Run e2e tests with cypress
+      - name: Run e2e tests with Cypress
         uses: cypress-io/github-action@v6
 
       - name: Stop the stack
