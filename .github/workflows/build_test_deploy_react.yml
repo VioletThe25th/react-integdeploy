@@ -116,7 +116,7 @@ jobs:
         uses: cypress-io/github-action@v6
 
       - name: Stop the stack
-        run: docker-compose -f docker-compose.yml down
+        run: docker compose -f docker-compose.yml down
 
   deploy:
     environment:
