@@ -1,5 +1,4 @@
 import './App.css';
-import axios from 'axios';
 import React, { useCallback, useEffect, useState } from 'react';
 import RegisterForm from './components/RegisterForm';
 import UserList from './components/UserList';
